@@ -26,6 +26,7 @@ return function (ContainerBuilder $containerBuilder) {
                 'db' => [
                     'driver' => 'mysql',
                     'host' => getenv('MYSQL_HOST'),
+                    'port' => getenv('MYSQL_PORT'),
                     'database' => getenv('MYSQL_DATABASE'),
                     'username' => getenv('MYSQL_USERNAME'),
                     'password' => getenv('MYSQL_PASSWORD'),
