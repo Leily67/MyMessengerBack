@@ -1,18 +1,32 @@
 version: '3.7'
 
 volumes:
-    logs:
+    mysql:
         driver: local
 
 services:
+    db:
+        image: mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: example
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: messages_microservice
+        volumes:
+            - ./messages_microservice.sql:/docker-entrypoint-initdb.d/messages_microservice.sql
+            - mysql:/var/lib/mysql
     slim:
-        image: php:7-alpine
+        build: .
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
-            docker: "true"
+            MYSQL_HOST: db
+            MYSQL_PORT: 3306
+            MYSQL_DATABASE: messages_microservice
+            MYSQL_USERNAME: user
+            MYSQL_PASSWORD: password
+            JWT_SECRET: secretpass
         ports:
             - "8080:8080"
         volumes:
             - .:/var/www
-            - logs:/var/www/logs

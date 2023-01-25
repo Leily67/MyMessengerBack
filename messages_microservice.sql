@@ -1,6 +1,4 @@
-CREATE DATABASE messages_microservice;
 
-use messages_microservice;
 
 CREATE TABLE users (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
